@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.14.0.xsd">
+    <jdbc>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <url>jdbc:mysql://localhost:3306/db</url>
+        <user>debian-sys-maint</user>
+        <password>password</password>
+    </jdbc>
+
+    <generator>
+        <name>org.jooq.codegen.JavaGenerator</name>
+
+        <database>
+            <name>org.jooq.meta.mysql.MySQLDatabase</name>
+            <inputSchema>jam</inputSchema>
+            <includes>.*</includes>
+            <excludes></excludes>
+
+            <forcedTypes>
+                <forcedType>
+                    <userType>java.util.UUID</userType>
+                    <converter>com.andrew.project.util.jooq.UUIDConverter</converter>
+                    <includeExpression>
+                        .*\.test_table\.id
+                    </includeExpression>
+                    <includeTypes>CHAR\(36\)</includeTypes>
+                </forcedType>
+                <forcedType>
+                    <name>BOOLEAN</name>
+                    <includeTypes>(?i:TINYINT\(1\))</includeTypes>
+                </forcedType>
+            </forcedTypes>
+        </database>
+
+        <target>
+            <packageName>generated.jooq</packageName>
+            <directory>./src/main/java</directory>
+        </target>
+    </generator>
+</configuration>
