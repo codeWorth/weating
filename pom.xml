@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.andrew</groupId>
     <artifactId>weating</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version></version>
     <name>weating</name>
     <description>Like yelp, but only for you and your friends</description>
     <properties>
@@ -84,6 +84,19 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                com.andrew.weating.Application
+                            </mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
