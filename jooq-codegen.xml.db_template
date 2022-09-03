@@ -18,13 +18,13 @@
 
             <forcedTypes>
                 <forcedType>
-                    <userType>java.util.Instant</userType>
+                    <userType>java.time.Instant</userType>
                     <converter>com.andrew.weating.util.jooq.InstantConverter</converter>
                     <includeExpression>
                         .*\.entries\.created_at|
                         .*\.entries\.place_id_refresh_at
                     </includeExpression>
-                    <includeTypes>INT</includeTypes>
+                    <includeTypes>LONG</includeTypes>
                 </forcedType>
                 <forcedType>
                     <name>BOOLEAN</name>
