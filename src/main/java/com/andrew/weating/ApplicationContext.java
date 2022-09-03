@@ -15,7 +15,7 @@ import java.time.Clock;
 @Import({
         TestResource.class
 })
-public class Context {
+public class ApplicationContext {
     @Bean
     public WebMvcConfigurer corsConfigurer(
             @Value("${server.allowed.origin}") String allowedOrigin

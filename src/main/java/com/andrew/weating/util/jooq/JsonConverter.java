@@ -1,11 +1,11 @@
 package com.andrew.weating.util.jooq;
 
+import com.andrew.weating.util.ObjectMapperProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.ucla.jam.util.ObjectMapperProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Converter;
 

@@ -2,9 +2,9 @@
 <configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.14.0.xsd">
     <jdbc>
         <driver>com.mysql.cj.jdbc.Driver</driver>
-        <url>jdbc:mysql://localhost:3306/db</url>
+        <url>jdbc:mysql://localhost:3306/{db_info.name}</url>
         <user>debian-sys-maint</user>
-        <password>password</password>
+        <password>{db_info.password}</password>
     </jdbc>
 
     <generator>
@@ -12,18 +12,19 @@
 
         <database>
             <name>org.jooq.meta.mysql.MySQLDatabase</name>
-            <inputSchema>jam</inputSchema>
+            <inputSchema>{db_info.name}</inputSchema>
             <includes>.*</includes>
             <excludes></excludes>
 
             <forcedTypes>
                 <forcedType>
-                    <userType>java.util.UUID</userType>
-                    <converter>com.andrew.weating.util.jooq.UUIDConverter</converter>
+                    <userType>java.util.Instant</userType>
+                    <converter>com.andrew.weating.util.jooq.InstantConverter</converter>
                     <includeExpression>
-                        .*\.test_table\.id
+                        .*\.entries\.created_at|
+                        .*\.entries\.place_id_refresh_at
                     </includeExpression>
-                    <includeTypes>CHAR\(36\)</includeTypes>
+                    <includeTypes>INT</includeTypes>
                 </forcedType>
                 <forcedType>
                     <name>BOOLEAN</name>
