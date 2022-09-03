@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.andrew</groupId>
     <artifactId>weating</artifactId>
-    <version></version>
+    <version>1</version>
     <name>weating</name>
     <description>Like yelp, but only for you and your friends</description>
     <properties>

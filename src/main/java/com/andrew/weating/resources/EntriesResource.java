@@ -2,7 +2,7 @@ package com.andrew.weating.resources;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.andrew.weating.entries.Comment;
+import com.andrew.weating.comments.Comment;
 import com.andrew.weating.entries.EntriesManager;
 import com.andrew.weating.entries.Entry;
 import com.andrew.weating.util.Lists;
@@ -25,18 +25,6 @@ public class EntriesResource {
     @GetMapping(value = "{roomId}/entries", produces = APPLICATION_JSON_VALUE)
     public Collection<EntryView> entries(@PathVariable("roomId") String roomId) {
         return Lists.map(entriesManager.getEntriesForRoom(UUID.fromString(roomId)), EntryView::new);
-    }
-
-    @GetMapping(value = "{roomId}/{placeId}/entries", produces = APPLICATION_JSON_VALUE)
-    public Collection<FullEntryView> entriesAtPlace(
-            @PathVariable("roomId") String roomId,
-            @PathVariable("placeId") String placeId
-    ) {
-        return Lists.map(entriesManager.getEntriesForPlace(UUID.fromString(roomId), placeId),
-                entry -> new FullEntryView(
-                        entry.getEntry(),
-                        Lists.map(entry.getComments(), CommentView::new)
-                ));
     }
 
     @RequiredArgsConstructor

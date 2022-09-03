@@ -42,8 +42,7 @@
                         .*\.entries\.id|
                         .*\.entries\.room|
                         .*\.comments\.id|
-                        .*\.comments\.room|
-                        .*\.comments\.entry_id
+                        .*\.comments\.room
                     </includeExpression>
                     <includeTypes>CHAR\(36\)</includeTypes>
                 </forcedType>

@@ -1,4 +1,4 @@
-package com.andrew.weating.entries;
+package com.andrew.weating.comments;
 
 import lombok.Value;
 
@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 public class Comment {
     UUID id;
     UUID room;
-    UUID entryId;
+    String placeId;
 
     String commenter;
     String content;

@@ -1,4 +1,4 @@
-package com.andrew.weating.entries;
+package com.andrew.weating.comments;
 
 import java.time.Instant;
 import java.util.Collection;

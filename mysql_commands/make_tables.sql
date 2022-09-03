@@ -16,11 +16,12 @@ CREATE TABLE entries (
 
 CREATE TABLE comments (
     id CHAR(36) NOT NULL,
-    entry_id CHAR(36) NOT NULL,
+    place_id TEXT NOT NULL,
+    place_id_hash CHAR(44) NOT NULL,
     room CHAR(36) NOT NULL,
     commenter VARCHAR(128) NOT NULL,
     content TEXT,
     created_at BIGINT NOT NULL,
     updated_at BIGINT,
-    PRIMARY KEY (entry_id, id, room)
+    PRIMARY KEY (place_id_hash, room, id)
 );

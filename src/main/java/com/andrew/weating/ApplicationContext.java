@@ -1,5 +1,6 @@
 package com.andrew.weating;
 
+import com.andrew.weating.comments.CommentsContext;
 import com.andrew.weating.entries.EntriesContext;
 import com.andrew.weating.resources.CommentResource;
 import com.andrew.weating.resources.EntriesResource;
@@ -18,6 +19,7 @@ import java.time.Clock;
 
 @Import({
         EntriesContext.class,
+        CommentsContext.class,
 
         EntriesResource.class,
         EntryResource.class,

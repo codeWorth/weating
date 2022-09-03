@@ -2,7 +2,7 @@ package com.andrew.weating.resources;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.andrew.weating.entries.EntriesManager;
+import com.andrew.weating.comments.CommentsManager;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,14 +18,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 public class CommentResource {
-
-    private final EntriesManager entriesManager;
+    private final CommentsManager commentsManager;
 
     @PostMapping(value = "{roomId}/comment", consumes = APPLICATION_JSON_VALUE)
     public void addComment(@PathVariable("roomId") String roomId, @RequestBody CommentAddBody addReq) {
-        entriesManager.addComment(
+        commentsManager.addComment(
                 UUID.fromString(roomId),
-                addReq.getSubmitter(),
                 addReq.getPlaceId(),
                 addReq.getCommenter(),
                 addReq.getContent()
@@ -34,7 +32,7 @@ public class CommentResource {
 
     @PutMapping(value = "{roomId}/comment", consumes = APPLICATION_JSON_VALUE)
     public void editComment(@PathVariable("roomId") String roomId, @RequestBody CommentEditBody editReq) {
-        entriesManager.editComment(
+        commentsManager.editComment(
                 UUID.fromString(roomId),
                 UUID.fromString(editReq.id),
                 editReq.content
@@ -43,12 +41,11 @@ public class CommentResource {
 
     @DeleteMapping(value = "{roomId}/comment")
     public void deleteComment(@PathVariable("roomId") String roomId, @RequestParam("id") String id) {
-        entriesManager.deleteComment(UUID.fromString(roomId), UUID.fromString(id));
+        commentsManager.deleteComment(UUID.fromString(roomId), UUID.fromString(id));
     }
 
     @Value
     static class CommentAddBody {
-        String submitter;
         String placeId;
         String commenter;
         String content;

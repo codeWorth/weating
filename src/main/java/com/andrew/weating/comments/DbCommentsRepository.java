@@ -1,8 +1,9 @@
-package com.andrew.weating.entries;
+package com.andrew.weating.comments;
 
 import static generated.jooq.Tables.COMMENTS;
 import static java.util.stream.Collectors.toList;
 
+import com.andrew.weating.util.Hasher;
 import generated.jooq.tables.records.CommentsRecord;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
@@ -29,7 +30,7 @@ public class DbCommentsRepository implements CommentsRepository {
         context.update(COMMENTS)
                 .set(COMMENTS.CONTENT, content)
                 .set(COMMENTS.UPDATED_AT, updatedAt)
-                .where(COMMENTS.ENTRY_ID.eq(comment.getEntryId())
+                .where(COMMENTS.PLACE_ID_HASH.eq(comment.getPlaceId())
                         .and(COMMENTS.ID.eq(comment.getId()))
                         .and(COMMENTS.COMMENTER.eq(comment.getContent())))
                 .execute();
@@ -65,8 +66,9 @@ public class DbCommentsRepository implements CommentsRepository {
     private CommentsRecord toRecord(Comment comment) {
         return new CommentsRecord(
                 comment.getId(),
+                comment.getPlaceId(),
+                Hasher.hash(comment.getPlaceId()),
                 comment.getRoom(),
-                comment.getEntryId(),
                 comment.getCommenter(),
                 comment.getContent(),
                 comment.getCreatedAt(),
@@ -78,7 +80,7 @@ public class DbCommentsRepository implements CommentsRepository {
         return new Comment(
                 record.getId(),
                 record.getRoom(),
-                record.getEntryId(),
+                record.getPlaceId(),
                 record.getCommenter(),
                 record.getContent(),
                 record.getCreatedAt(),
