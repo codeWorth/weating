@@ -19,7 +19,7 @@
             <forcedTypes>
                 <forcedType>
                     <userType>java.util.UUID</userType>
-                    <converter>com.andrew.project.util.jooq.UUIDConverter</converter>
+                    <converter>com.andrew.weating.util.jooq.UUIDConverter</converter>
                     <includeExpression>
                         .*\.test_table\.id
                     </includeExpression>

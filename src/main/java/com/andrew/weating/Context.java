@@ -1,7 +1,7 @@
-package com.andrew.project;
+package com.andrew.weating;
 
-import com.andrew.project.resources.TestResource;
-import com.andrew.project.util.ObjectMapperProvider;
+import com.andrew.weating.resources.TestResource;
+import com.andrew.weating.util.ObjectMapperProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

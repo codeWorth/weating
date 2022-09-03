@@ -1,4 +1,4 @@
-package com.andrew.project;
+package com.andrew.weating;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;

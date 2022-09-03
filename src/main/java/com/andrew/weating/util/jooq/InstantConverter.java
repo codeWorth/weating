@@ -1,4 +1,4 @@
-package com.andrew.project.util.jooq;
+package com.andrew.weating.util.jooq;
 
 import org.jooq.Converter;
 

@@ -1,4 +1,4 @@
-package com.andrew.project.util;
+package com.andrew.weating.util;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.DeserializationFeature;

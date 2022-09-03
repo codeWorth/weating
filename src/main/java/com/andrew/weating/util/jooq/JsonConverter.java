@@ -1,4 +1,4 @@
-package com.andrew.project.util.jooq;
+package com.andrew.weating.util.jooq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
