@@ -4,6 +4,7 @@ import com.andrew.weating.entries.EntriesContext;
 import com.andrew.weating.resources.CommentResource;
 import com.andrew.weating.resources.EntriesResource;
 import com.andrew.weating.resources.EntryResource;
+import com.andrew.weating.resources.RoomResource;
 import com.andrew.weating.util.ObjectMapperProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,8 @@ import java.time.Clock;
 
         EntriesResource.class,
         EntryResource.class,
-        CommentResource.class
+        CommentResource.class,
+        RoomResource.class
 })
 public class ApplicationContext {
     @Bean
