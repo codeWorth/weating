@@ -14,7 +14,6 @@
             <name>org.jooq.meta.mysql.MySQLDatabase</name>
             <inputSchema>{db_info.name}</inputSchema>
             <includes>.*</includes>
-            <excludes></excludes>
 
             <forcedTypes>
                 <forcedType>
@@ -24,7 +23,7 @@
                         .*\.entries\.created_at|
                         .*\.entries\.place_id_refresh_at
                     </includeExpression>
-                    <includeTypes>LONG</includeTypes>
+                    <includeTypes>BIGINT</includeTypes>
                 </forcedType>
                 <forcedType>
                     <name>BOOLEAN</name>
