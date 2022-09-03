@@ -12,7 +12,7 @@ public class Entry {
     String placeId;
     Instant placeIdRefresh;
 
-    int rating;
+    double rating;
     String review;
     Instant createdAt;
 }

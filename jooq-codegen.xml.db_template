@@ -26,6 +26,14 @@
                     <includeTypes>BIGINT</includeTypes>
                 </forcedType>
                 <forcedType>
+                    <userType>java.lang.Double</userType>
+                    <converter>com.andrew.weating.util.jooq.RatingConverter</converter>
+                    <includeExpression>
+                        .*\.entries\.rating
+                    </includeExpression>
+                    <includeTypes>INT</includeTypes>
+                </forcedType>
+                <forcedType>
                     <name>BOOLEAN</name>
                     <includeTypes>(?i:TINYINT\(1\))</includeTypes>
                 </forcedType>
