@@ -10,6 +10,7 @@ import org.jooq.DSLContext;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class DbEntriesRepository implements EntriesRepository {
@@ -25,7 +26,16 @@ public class DbEntriesRepository implements EntriesRepository {
     }
 
     @Override
-    public Optional<Entry> get(String room, String submitter, String placeId) {
+    public void delete(UUID room, String submitter, String placeId) {
+        context.deleteFrom(ENTRIES)
+                .where(ENTRIES.ROOM.eq(room)
+                        .and(ENTRIES.SUBMITTER.eq(submitter))
+                        .and(ENTRIES.PLACE_ID.eq(placeId)))
+                .execute();
+    }
+
+    @Override
+    public Optional<Entry> get(UUID room, String submitter, String placeId) {
         return context.selectFrom(ENTRIES)
                 .where(ENTRIES.ROOM.eq(room)
                         .and(ENTRIES.SUBMITTER.eq(submitter))
@@ -35,7 +45,7 @@ public class DbEntriesRepository implements EntriesRepository {
     }
 
     @Override
-    public Collection<Entry> getAll(String room) {
+    public Collection<Entry> getAll(UUID room) {
         return context.selectFrom(ENTRIES)
                 .where(ENTRIES.ROOM.eq(room))
                 .fetchStream()
@@ -44,7 +54,7 @@ public class DbEntriesRepository implements EntriesRepository {
     }
 
     @Override
-    public boolean containsRoom(String room) {
+    public boolean containsRoom(UUID room) {
         return context.selectFrom(ENTRIES)
                 .where(ENTRIES.ROOM.eq(room))
                 .fetchOptional()
@@ -53,6 +63,7 @@ public class DbEntriesRepository implements EntriesRepository {
 
     private EntriesRecord toRecord(Entry entry) {
         return new EntriesRecord(
+                entry.getId(),
                 entry.getRoom(),
                 entry.getSubmitter(),
                 entry.getCreatedAt(),
@@ -66,13 +77,14 @@ public class DbEntriesRepository implements EntriesRepository {
 
     private Entry fromRecord(EntriesRecord record) {
         return new Entry(
+                record.getId(),
                 record.getRoom(),
                 record.getSubmitter(),
-                record.getPlaceId(),
-                record.getPlaceIdRefreshAt(),
                 record.getRating(),
                 record.getReview(),
-                record.getCreatedAt()
+                record.getCreatedAt(),
+                record.getPlaceId(),
+                record.getPlaceIdRefreshAt()
         );
     }
 }

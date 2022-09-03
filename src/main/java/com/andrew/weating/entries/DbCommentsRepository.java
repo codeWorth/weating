@@ -11,7 +11,6 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class DbCommentsRepository implements CommentsRepository {
@@ -37,17 +36,27 @@ public class DbCommentsRepository implements CommentsRepository {
     }
 
     @Override
-    public Optional<Comment> get(UUID id) {
+    public void delete(UUID room, UUID id) {
+        context.deleteFrom(COMMENTS)
+                .where(COMMENTS.ROOM.eq(room)
+                        .and(COMMENTS.ID.eq(id)))
+                .execute();
+    }
+
+    @Override
+    public Optional<Comment> get(UUID room, UUID id) {
         return context.selectFrom(COMMENTS)
-                .where(COMMENTS.ID.eq(id))
+                .where(COMMENTS.ROOM.eq(room)
+                        .and(COMMENTS.ID.eq(id)))
                 .fetchOptional()
                 .map(this::fromRecord);
     }
 
     @Override
-    public Collection<Comment> getAll(Collection<UUID> entryIds) {
+    public Collection<Comment> getAll(UUID room, Collection<UUID> entryIds) {
         return context.selectFrom(COMMENTS)
-                .where(COMMENTS.ENTRY_ID.in(entryIds))
+                .where(COMMENTS.ROOM.eq(room)
+                        .and(COMMENTS.ID.in(entryIds)))
                 .fetchStream()
                 .map(this::fromRecord)
                 .collect(toList());
@@ -56,6 +65,7 @@ public class DbCommentsRepository implements CommentsRepository {
     private CommentsRecord toRecord(Comment comment) {
         return new CommentsRecord(
                 comment.getId(),
+                comment.getRoom(),
                 comment.getEntryId(),
                 comment.getCommenter(),
                 comment.getContent(),
@@ -67,6 +77,7 @@ public class DbCommentsRepository implements CommentsRepository {
     private Comment fromRecord(CommentsRecord record) {
         return new Comment(
                 record.getId(),
+                record.getRoom(),
                 record.getEntryId(),
                 record.getCommenter(),
                 record.getContent(),

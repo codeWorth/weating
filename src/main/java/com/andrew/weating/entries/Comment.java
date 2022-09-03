@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 @Value
 public class Comment {
     UUID id;
+    UUID room;
     UUID entryId;
 
     String commenter;
@@ -17,4 +18,8 @@ public class Comment {
     Instant createdAt;
     @Nullable
     Instant updatedAt;
+
+    public boolean isUpdated() {
+        return updatedAt != null;
+    }
 }

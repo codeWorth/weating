@@ -9,10 +9,11 @@ import java.util.UUID;
 public interface CommentsRepository {
     void add(Comment comment);
     void edit(Comment comment, String content, Instant updatedAt);
+    void delete(UUID room, UUID id);
 
-    Optional<Comment> get(UUID id);
-    Collection<Comment> getAll(Collection<UUID> entryIds);
-    default Collection<Comment> getAll(UUID entryId) {
-        return getAll(List.of(entryId));
+    Optional<Comment> get(UUID room, UUID id);
+    Collection<Comment> getAll(UUID room, Collection<UUID> entryIds);
+    default Collection<Comment> getAll(UUID room, UUID entryId) {
+        return getAll(room, List.of(entryId));
     }
 }

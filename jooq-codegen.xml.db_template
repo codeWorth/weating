@@ -3,7 +3,7 @@
     <jdbc>
         <driver>com.mysql.cj.jdbc.Driver</driver>
         <url>jdbc:mysql://localhost:3306/{db_info.name}</url>
-        <user>debian-sys-maint</user>
+        <user>{db_info.username}</user>
         <password>{db_info.password}</password>
     </jdbc>
 
@@ -40,7 +40,9 @@
                     <converter>com.andrew.weating.util.jooq.UUIDConverter</converter>
                     <includeExpression>
                         .*\.entries\.id|
+                        .*\.entries\.room|
                         .*\.comments\.id|
+                        .*\.comments\.room|
                         .*\.comments\.entry_id
                     </includeExpression>
                     <includeTypes>CHAR\(36\)</includeTypes>

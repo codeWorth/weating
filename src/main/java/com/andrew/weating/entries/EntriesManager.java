@@ -19,34 +19,42 @@ public class EntriesManager {
     private final CommentsRepository commentsRepository;
     private final Clock clock;
 
-    public void addEntry(String room, String submitter, String placeId, double rating, String review) {
+    public void addEntry(UUID room, String submitter, String placeId, double rating, String review) {
         entriesRepository.add(new Entry(
                 UUID.randomUUID(),
                 room,
                 submitter,
-                placeId,
-                clock.instant(),
                 rating,
                 review,
+                clock.instant(),
+                placeId,
                 clock.instant()
         ));
     }
 
-    public void updateEntry(String room, String submitter, String placeId, Function<Entry, Entry> updateFunc) {
+    public void updateEntry(UUID room, String submitter, String placeId, Function<Entry, Entry> updateFunc) {
         entriesRepository.get(room, submitter, placeId)
                 .map(updateFunc)
                 .ifPresent(entriesRepository::add);
     }
 
-    public Collection<FullEntry> getEntriesForPlace(String room, String placeId) {
+    public void deleteEntry(UUID room, String submitter, String placeId) {
+        entriesRepository.delete(room, submitter, placeId);
+    }
+
+    public Collection<Entry> getEntriesForRoom(UUID room) {
+        return entriesRepository.getAll(room);
+    }
+
+    public Collection<FullEntry> getEntriesForPlace(UUID room, String placeId) {
         List<Entry> entries = entriesRepository.getAll(room).stream()
                 .filter(entry -> entry.getPlaceId().equals(placeId))
                 .collect(toList());
 
-        Map<UUID, List<Comment>> comments = commentsRepository.getAll(entries
-                .stream()
-                .map(Entry::getId)
-                .collect(toList()))
+        Map<UUID, List<Comment>> comments = commentsRepository.getAll(room,
+                        entries.stream()
+                                .map(Entry::getId)
+                                .collect(toList()))
                 .stream()
                 .collect(toMap(Comment::getEntryId, List::of, Lists::merge));
 
@@ -58,10 +66,11 @@ public class EntriesManager {
                 .collect(toList());
     }
 
-    public void addComment(String room, String submitter, String placeId, String commenter, String comment) {
+    public void addComment(UUID room, String submitter, String placeId, String commenter, String comment) {
         entriesRepository.get(room, submitter, placeId)
                 .map(entry -> new Comment(
                         UUID.randomUUID(),
+                        room,
                         entry.getId(),
                         commenter,
                         comment,
@@ -71,8 +80,12 @@ public class EntriesManager {
                 .ifPresent(commentsRepository::add);
     }
 
-    public void editComment(UUID id, String content) {
-        commentsRepository.get(id)
+    public void editComment(UUID room, UUID id, String content) {
+        commentsRepository.get(room, id)
                 .ifPresent(comment -> commentsRepository.edit(comment, content, clock.instant()));
+    }
+
+    public void deleteComment(UUID room, UUID id) {
+        commentsRepository.delete(room, id);
     }
 }

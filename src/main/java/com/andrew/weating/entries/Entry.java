@@ -9,17 +9,15 @@ import java.util.UUID;
 @Value
 public class Entry {
     UUID id;
-
-    String room;
+    UUID room;
     String submitter;
-
-    String placeId;
-    @With
-    Instant placeIdRefresh;
-
     @With
     double rating;
     @With
     String review;
     Instant createdAt;
+
+    String placeId;
+    @With
+    Instant placeIdRefresh;
 }
