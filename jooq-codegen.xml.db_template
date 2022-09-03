@@ -21,7 +21,9 @@
                     <converter>com.andrew.weating.util.jooq.InstantConverter</converter>
                     <includeExpression>
                         .*\.entries\.created_at|
-                        .*\.entries\.place_id_refresh_at
+                        .*\.entries\.place_id_refresh_at|
+                        .*\.comments\.created_at|
+                        .*\.comments\.updated_at
                     </includeExpression>
                     <includeTypes>BIGINT</includeTypes>
                 </forcedType>
@@ -32,6 +34,16 @@
                         .*\.entries\.rating
                     </includeExpression>
                     <includeTypes>INT</includeTypes>
+                </forcedType>
+                <forcedType>
+                    <userType>java.util.UUID</userType>
+                    <converter>com.andrew.weating.util.jooq.UUIDConverter</converter>
+                    <includeExpression>
+                        .*\.entries\.id|
+                        .*\.comments\.id|
+                        .*\.comments\.entry_id
+                    </includeExpression>
+                    <includeTypes>CHAR\(36\)</includeTypes>
                 </forcedType>
                 <forcedType>
                     <name>BOOLEAN</name>
