@@ -37,10 +37,10 @@ public class DbCommentsRepository implements CommentsRepository {
     }
 
     @Override
-    public void delete(UUID room, UUID id) {
+    public void deleteAll(UUID room, Collection<UUID> ids) {
         context.deleteFrom(COMMENTS)
                 .where(COMMENTS.ROOM.eq(room)
-                        .and(COMMENTS.ID.eq(id)))
+                        .and(COMMENTS.ID.in(ids)))
                 .execute();
     }
 
@@ -54,10 +54,10 @@ public class DbCommentsRepository implements CommentsRepository {
     }
 
     @Override
-    public Collection<Comment> getAll(UUID room, Collection<UUID> entryIds) {
+    public Collection<Comment> getAll(UUID room, String placeId) {
         return context.selectFrom(COMMENTS)
                 .where(COMMENTS.ROOM.eq(room)
-                        .and(COMMENTS.ID.in(entryIds)))
+                        .and(COMMENTS.PLACE_ID.eq(placeId)))
                 .fetchStream()
                 .map(this::fromRecord)
                 .collect(toList());

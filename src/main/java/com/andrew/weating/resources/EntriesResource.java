@@ -2,7 +2,6 @@ package com.andrew.weating.resources;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.andrew.weating.comments.Comment;
 import com.andrew.weating.entries.EntriesManager;
 import com.andrew.weating.entries.Entry;
 import com.andrew.weating.util.Lists;
@@ -39,27 +38,5 @@ public class EntriesResource {
             Instant getCreatedAt();
             String getPlaceId();
         }
-    }
-
-    @RequiredArgsConstructor
-    static class CommentView {
-        @Delegate(types = CommentView.Properties.class)
-        private final Comment comment;
-
-        interface Properties {
-            UUID getId();
-            String getCommenter();
-            String getContent();
-            Instant getCreatedAt();
-            Instant getUpdatedAt();
-            boolean isUpdated();
-        }
-    }
-
-    @RequiredArgsConstructor
-    static class FullEntryView {
-        @Delegate(types = EntryView.Properties.class)
-        private final Entry entry;
-        private final Collection<CommentView> comments;
     }
 }
