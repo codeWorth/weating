@@ -26,7 +26,7 @@ import java.util.UUID;
 public class CommentResource {
     private final CommentsManager commentsManager;
 
-    @GetMapping(value = "{roomId}/comment", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{roomId}/comments", produces = APPLICATION_JSON_VALUE)
     public Collection<CommentView> getCommentsForPlace(
             @PathVariable("roomId") String roomId,
             @RequestParam("placeId") String placeId
@@ -48,8 +48,8 @@ public class CommentResource {
     public void editComment(@PathVariable("roomId") String roomId, @RequestBody CommentEditBody editReq) {
         commentsManager.editComment(
                 UUID.fromString(roomId),
-                UUID.fromString(editReq.id),
-                editReq.content
+                UUID.fromString(editReq.getId()),
+                editReq.getContent()
         );
     }
 

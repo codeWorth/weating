@@ -30,9 +30,9 @@ public class DbCommentsRepository implements CommentsRepository {
         context.update(COMMENTS)
                 .set(COMMENTS.CONTENT, content)
                 .set(COMMENTS.UPDATED_AT, updatedAt)
-                .where(COMMENTS.PLACE_ID_HASH.eq(comment.getPlaceId())
+                .where(COMMENTS.PLACE_ID.eq(comment.getPlaceId())
                         .and(COMMENTS.ID.eq(comment.getId()))
-                        .and(COMMENTS.COMMENTER.eq(comment.getContent())))
+                        .and(COMMENTS.COMMENTER.eq(comment.getCommenter())))
                 .execute();
     }
 
