@@ -36,3 +36,4 @@ application.properties
 jooq-codegen.xml
 /src/main/java/generated
 db_info.json
+prod_db_info.json

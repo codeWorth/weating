@@ -11,7 +11,8 @@ def insert_data(input_file_name: str, info_file_name: str):
         data: str = input_file.read()
         info: dict = json.loads(info_file.read())
 
-        info_name = info_file_name.split("/")[-1].split(".")[0]
+        # info_name = info_file_name.split("/")[-1].split(".")[0]
+        info_name = "db_info"
         for key, value in info.items():
             data = data.replace(f"{{{info_name}.{key}}}", value)
 
