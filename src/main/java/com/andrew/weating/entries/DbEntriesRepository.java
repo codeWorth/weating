@@ -11,6 +11,7 @@ import org.jooq.DSLContext;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class DbEntriesRepository implements EntriesRepository {
@@ -20,8 +21,17 @@ public class DbEntriesRepository implements EntriesRepository {
     public void add(Entry entry) {
         context.insertInto(ENTRIES)
                 .set(toRecord(entry))
-                .onDuplicateKeyUpdate()
-                .set(toRecord(entry))
+                .onDuplicateKeyIgnore()
+                .execute();
+    }
+
+    @Override
+    public void update(Entry entry, Function<Entry, Entry> func) {
+        context.update(ENTRIES)
+                .set(toRecord(func.apply(entry)))
+                .where(ENTRIES.ROOM.eq(entry.getRoom())
+                        .and(ENTRIES.SUBMITTER.eq(entry.getSubmitter()))
+                        .and(ENTRIES.PLACE_ID.eq(entry.getPlaceId())))
                 .execute();
     }
 
@@ -69,7 +79,6 @@ public class DbEntriesRepository implements EntriesRepository {
                 entry.getCreatedAt(),
                 entry.getPlaceId(),
                 Hasher.hash(entry.getPlaceId()),
-                entry.getPlaceIdRefresh(),
                 entry.getRating(),
                 entry.getReview()
         );
@@ -83,8 +92,7 @@ public class DbEntriesRepository implements EntriesRepository {
                 record.getRating(),
                 record.getReview(),
                 record.getCreatedAt(),
-                record.getPlaceId(),
-                record.getPlaceIdRefreshAt()
+                record.getPlaceId()
         );
     }
 }

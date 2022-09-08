@@ -4,7 +4,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.andrew.weating.comments.Comment;
 import com.andrew.weating.comments.CommentsManager;
-import com.andrew.weating.util.Lists;
+import com.andrew.weating.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.Delegate;
@@ -31,7 +31,7 @@ public class CommentResource {
             @PathVariable("roomId") String roomId,
             @RequestParam("placeId") String placeId
     ) {
-        return Lists.map(commentsManager.getAllForPlace(UUID.fromString(roomId), placeId), CommentView::new);
+        return Collections.map(commentsManager.getAllForPlace(UUID.fromString(roomId), placeId), CommentView::new);
     }
 
     @PostMapping(value = "{roomId}/comment", consumes = APPLICATION_JSON_VALUE)

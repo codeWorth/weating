@@ -2,9 +2,11 @@ package com.andrew.weating;
 
 import com.andrew.weating.comments.CommentsContext;
 import com.andrew.weating.entries.EntriesContext;
+import com.andrew.weating.places.PlacesContext;
 import com.andrew.weating.resources.CommentResource;
 import com.andrew.weating.resources.EntriesResource;
 import com.andrew.weating.resources.EntryResource;
+import com.andrew.weating.resources.PlacesResource;
 import com.andrew.weating.resources.RoomResource;
 import com.andrew.weating.util.ObjectMapperProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,11 +22,13 @@ import java.time.Clock;
 @Import({
         EntriesContext.class,
         CommentsContext.class,
+        PlacesContext.class,
 
         EntriesResource.class,
         EntryResource.class,
         CommentResource.class,
-        RoomResource.class
+        RoomResource.class,
+        PlacesResource.class
 })
 public class ApplicationContext {
     @Bean

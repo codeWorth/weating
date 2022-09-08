@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS entries;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS places;
 
 CREATE TABLE entries (
     id CHAR(36) NOT NULL,
@@ -8,7 +9,6 @@ CREATE TABLE entries (
     created_at BIGINT NOT NULL,
     place_id TEXT NOT NULL,
     place_id_hash CHAR(44) NOT NULL,
-    place_id_refresh_at BIGINT NOT NULL,
     rating INT NOT NULL,
     review TEXT,
     PRIMARY KEY (room, submitter, place_id_hash)
@@ -24,4 +24,11 @@ CREATE TABLE comments (
     created_at BIGINT NOT NULL,
     updated_at BIGINT,
     PRIMARY KEY (place_id_hash, room, id)
+);
+
+CREATE TABLE places (
+    id TEXT NOT NULL,
+    id_hash CHAR(44) NOT NULL PRIMARY KEY,
+    refresh_at BIGINT NOT NULL,
+    geometry TEXT NOT NULL
 );

@@ -1,6 +1,6 @@
 package com.andrew.weating.comments;
 
-import com.andrew.weating.util.Lists;
+import com.andrew.weating.util.Collections;
 import lombok.RequiredArgsConstructor;
 
 import java.time.Clock;
@@ -38,6 +38,6 @@ public class CommentsManager {
     }
 
     public void deleteComments(UUID room, String placeId) {
-        commentsRepository.deleteAll(room, Lists.map(commentsRepository.getAll(room, placeId), Comment::getId));
+        commentsRepository.deleteAll(room, Collections.map(commentsRepository.getAll(room, placeId), Comment::getId));
     }
 }

@@ -22,15 +22,17 @@ public class EntriesManager {
                 rating,
                 review,
                 clock.instant(),
-                placeId,
-                clock.instant()
+                placeId
         ));
+    }
+
+    public void updateEntry(Entry entry, Function<Entry, Entry> updateFunc) {
+        entriesRepository.update(entry, updateFunc);
     }
 
     public void updateEntry(UUID room, String submitter, String placeId, Function<Entry, Entry> updateFunc) {
         entriesRepository.get(room, submitter, placeId)
-                .map(updateFunc)
-                .ifPresent(entriesRepository::add);
+                .ifPresent(entry -> updateEntry(entry, updateFunc));
     }
 
     public void deleteEntry(UUID room, String submitter, String placeId) {

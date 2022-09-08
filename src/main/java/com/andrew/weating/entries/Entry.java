@@ -17,7 +17,6 @@ public class Entry {
     String review;
     Instant createdAt;
 
-    String placeId;
     @With
-    Instant placeIdRefresh;
+    String placeId;
 }

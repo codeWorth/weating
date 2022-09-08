@@ -21,9 +21,9 @@
                     <converter>com.andrew.weating.util.jooq.InstantConverter</converter>
                     <includeExpression>
                         .*\.entries\.created_at|
-                        .*\.entries\.place_id_refresh_at|
                         .*\.comments\.created_at|
-                        .*\.comments\.updated_at
+                        .*\.comments\.updated_at|
+                        .*\.places\.refresh_at
                     </includeExpression>
                     <includeTypes>BIGINT</includeTypes>
                 </forcedType>
@@ -42,9 +42,16 @@
                         .*\.entries\.id|
                         .*\.entries\.room|
                         .*\.comments\.id|
-                        .*\.comments\.room
+                        .*\.comments\.room|
+                        .*\.places\.refresh_at
                     </includeExpression>
                     <includeTypes>CHAR\(36\)</includeTypes>
+                </forcedType>
+                <forcedType>
+                    <userType>com.andrew.weating.places.Place.Geometry</userType>
+                    <converter>com.andrew.weating.places.Place.Geometry.Converter</converter>
+                    <includeExpression>.*\.places\.geometry</includeExpression>
+                    <includeTypes>TEXT</includeTypes>
                 </forcedType>
                 <forcedType>
                     <name>BOOLEAN</name>
